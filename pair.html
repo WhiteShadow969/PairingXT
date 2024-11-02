@@ -1,0 +1,276 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KHAN-MD</title>
+  <link rel="stylesheet" href="fontawesome/css/all.min.css">
+  <style>
+  body {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('https://raw.githubusercontent.com/JAWADXD55/PairingXD/main/images/khanbg.png');
+  background-size: cover; 
+  background-position: center; 
+  font-family: 'Helvetica', sans-serif;
+  overflow: hidden;
+  margin: 0;
+    }
+    
+     .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 1s ease-in;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .header h1 {
+      color: #0b8457;
+      font-size: 24px;
+      margin: 0;
+    }
+
+    .main {
+      width: 100%;
+      text-align: center;
+    }
+
+    .main input {
+      width: 80%;
+      max-width: 400px;
+      height: 40px;
+      border: 1px solid #ccc;
+      padding: 5px 15px;
+      font-size: 16px;
+      margin-bottom: 15px;
+      border-radius: 25px;
+      text-align: center;
+      transition: box-shadow 0.3s ease;
+    }
+
+    #countryCode {
+      width: 30%;
+      margin-right: 5px;
+    }
+
+    .main input:focus {
+      box-shadow: 0 0 10px #75d5a7;
+    }
+
+    .main button {
+      width: 80%;
+      max-width: 400px;
+      height: 45px;
+      font-size: 18px;
+      color: #fff;
+      background-color: #D84444;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-bottom: 10px;
+    }
+
+    .main button:hover {
+      background-color: #086a45;
+    }
+
+    #copyb {
+      width: 80%;
+      max-width: 400px;
+      height: 40px;
+      font-size: 16px;
+      color: #fff;
+      background-color: #1cb84e;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    #copyb:hover {
+      background-color: #179640;
+    }
+
+    #copy {
+      color: #333;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .logo {
+      margin-bottom: 15px;
+    }
+
+    .loading {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(255, 255, 255, 0.8);
+      z-index: 20;
+    }
+
+    .loading div {
+      border: 4px solid #ccc;
+      border-top: 4px solid #0b8457;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .whatsapp-button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      font-size: 14px;
+      color: #fff;
+      background-color: #25D366;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      transition: background-color 0.3s ease;
+    }
+
+    .whatsapp-button:hover {
+      background-color: #1EB34B;
+    }
+
+    .whatsapp-button i {
+      margin-right: 5px;
+    }
+
+
+</style>
+</head>
+<body>
+ <div class="container">
+  <div class="header">
+   <h1>KHAN-MD PAIRING</h1>
+  </div>
+  <div class="main">
+   <form>
+    <span>
+     <i class="fa fa-user"></i>
+     <input type="number" id="number" placeholder="+9231034481XX" name="">
+    </span><br>
+     <button id="submit">Submit</button>
+<main id="pair"></main>
+   </form>
+  </div>
+ </div>
+ 
+   <button id="icon-button" class="whatsapp-button" onclick="window.open('https://whatsapp.com/channel/0029Vaj1hl1Lo4hksSXY0U2t', '_blank')">
+    <i class="fab fa-whatsapp"></i> Join WhatsApp Channel
+  </button>
+ 
+ <link rel="import" href="./loader.html">
+ <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"
+    ></script>
+    <script>
+      let a = document.getElementById("pair");
+      let b = document.getElementById("submit");
+      let c = document.getElementById("number");
+  
+      let isSubmitting = false;
+      let isCodeDisplayed = false;
+  
+      async function Copy() {
+        let text = document.getElementById("copy").innerText;
+        let obj = document.getElementById("copy");
+        await navigator.clipboard.writeText(obj.innerText.replace('CODE: ', ''));
+        obj.innerText = "COPIED";
+        obj.style = "color:blue;font-weight:bold";
+        obj.size = "5";
+        setTimeout(() => {
+          obj.innerText = text;
+          obj.style = "color:black;font-weight-bold";
+          obj.size = "5";
+        }, 500);
+      }
+  
+      b.addEventListener("click", async (e) => {
+        e.preventDefault();
+  
+        if (isCodeDisplayed) {
+          alert("Please wait for 2 minutes before requesting a new code.");
+          return;
+        }
+  
+        if (isSubmitting) {
+          alert("Please wait for the code before trying to request again.");
+          return;
+        }
+  
+        if (!c.value) {
+          a.innerHTML = '<a style="color:black;font-weight:bold">Enter your WhatsApp number with a country code</a><br><br>';
+        } else if (c.value.replace(/[^0-9]/g, "").length < 11) {
+          a.innerHTML = '<a style="color:black;font-weight:bold">Invalid number format</a><br><br>';
+        } else {
+          isSubmitting = true;
+  
+          const bc = c.value.replace(/[^0-9]/g, "");
+          let bb = "";
+          let bbc = "";
+          const cc = bc.split('');
+          cc.map(a => {
+            bbc += a;
+            if (bbc.length == 3) {
+              bb += " " + a;
+            } else if (bbc.length == 8) {
+              bb += " " + a;
+            } else {
+              bb += a;
+            }
+          });
+  
+          c.type = "text";
+          c.value = "+" + bb;
+          c.style = "color:black;font-size:20px";
+          a.innerHTML = '<a style="color:black;font-weight:bold">Please wait for some time</a><br><br>';
+  
+          try {
+            let {
+              data
+            } = await axios(`/pair?phone=${bc}`);
+            let code = data.code || "Service Unavailable";
+            a.innerHTML = '<font id="copy" onclick="Copy()" style="color:red;font-weight:bold" size="5">CODE: <span style="color:black;font-weight:bold">' + code + '</span></font><br><br><br>';
+            isCodeDisplayed = true;
+  
+            setTimeout(() => {
+              isCodeDisplayed = false;
+            }, 120000); 
+          } catch (error) {
+            
+          } finally {
+            isSubmitting = false;
+          }
+        }
+      });
+    </script>
+</body>
+  </html>
